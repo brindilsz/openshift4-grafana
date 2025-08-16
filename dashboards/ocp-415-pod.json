@@ -2333,7 +2333,32 @@
 			],
 			"title": "Pod Error",
 			"type": "row"
-		}
+		},
+		{
+          "type": "table",
+          "title": "Pods OOMKilled",
+          "datasource": "Prometheus",
+          "targets": [
+            {
+              "expr": "max by (namespace, pod) (kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"} == 1)",
+              "refId": "A"
+            }
+          ],
+          "transformations": [],
+          "options": {
+            "showHeader": true
+          },
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 30
+          }
+        }
 	],
 	"refresh": false,
 	"schemaVersion": 37,
