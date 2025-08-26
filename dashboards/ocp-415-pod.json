@@ -125,13 +125,12 @@
     },
     {
       "type": "table",
-      "title": "Pods OOMKilled (namespace & pod)",
+      "title": "Pods OOMKilled (Namespace & Pod)",
       "datasource": "${DS_PROMETHEUS}",
       "targets": [
         {
-          "expr": "kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"} == 1",
-          "legendFormat": "{{namespace}} / {{pod}}",
-          "refId": "A"
+        "expr": "kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"} == 1",
+        "refId": "A"
         }
       ],
       "transformations": [
@@ -139,27 +138,78 @@
           "id": "labelsToFields",
           "options": {
             "mode": "columns"
-        }
-    }
-  ],
-  "options": {
-    "showHeader": true
-  },
-  "fieldConfig": {
-    "defaults": {
-      "unit": "none"
-    },
-    "overrides": [
-      {
-        "matcher": {
-          "id": "byName",
-          "options": "Value"
-        },
-        "properties": [
-          {
-            "id": "custom.hidden",
-            "value": true
           }
+        }
+      ],
+      "options": {
+        "showHeader": true
+      },
+      "fieldConfig": {
+      "defaults": {
+        "unit": "none"
+      },
+      "overrides": [
+        {
+          "matcher": {
+          "id": "byName",
+          "options": "kube_pod_container_status_last_terminated_reason"
+          },
+          "properties": [
+            { "id": "custom.hidden", "value": true }
+          ]
+        },
+      {
+        "matcher": { "id": "byName", "options": "__name__" },
+        "properties": [
+          { "id": "custom.hidden", "value": true }
+        ]
+      },
+      {
+        "matcher": { "id": "byName", "options": "endpoint" },
+        "properties": [
+          { "id": "custom.hidden", "value": true }
+        ]
+      },
+      {
+        "matcher": { "id": "byName", "options": "job" },
+        "properties": [
+          { "id": "custom.hidden", "value": true }
+        ]
+      },
+      {
+        "matcher": { "id": "byName", "options": "service" },
+        "properties": [
+          { "id": "custom.hidden", "value": true }
+        ]
+      },
+      {
+        "matcher": { "id": "byName", "options": "uid" },
+        "properties": [
+          { "id": "custom.hidden", "value": true }
+        ]
+      },
+      {
+        "matcher": { "id": "byName", "options": "namespace" },
+        "properties": [
+          { "id": "displayName", "value": "Namespace" }
+        ]
+      },
+      {
+        "matcher": { "id": "byName", "options": "pod" },
+        "properties": [
+          { "id": "displayName", "value": "Pod Name" }
+        ]
+      },
+      {
+        "matcher": { "id": "byName", "options": "container" },
+        "properties": [
+          { "id": "displayName", "value": "Container" }
+        ]
+      },
+      {
+        "matcher": { "id": "byName", "options": "reason" },
+        "properties": [
+          { "id": "displayName", "value": "Reason" }
         ]
       }
     ]
@@ -169,9 +219,8 @@
     "w": 24,
     "x": 0,
     "y": 0
-  }
-}
-
+    }
+   }
   ],
   "refresh": "30s",
   "schemaVersion": 39,
