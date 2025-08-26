@@ -23,46 +23,61 @@
   "liveNow": false,
   "panels": [
     {
-      "type": "table",
-      "title": "Pods OOMKilled (Summary by Namespace & Pod)",
-      "datasource": "${DS_PROMETHEUS}",
-      "targets": [
-        {
-          "expr": "sum by (namespace, pod, container) (kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"})",
-          "refId": "A",
-          "instant": true
-        }
-      ],
-      "options": {
-      "showHeader": true
-      },
-      "fieldConfig": {
-        "overrides": [
-          {
-            "matcher": { "id": "byName", "options": "namespace" },
-            "properties": [{ "id": "displayName", "value": "Namespace" }]
-          },
-          {
-            "matcher": { "id": "byName", "options": "pod" },
-            "properties": [{ "id": "displayName", "value": "Pod Name" }]
-          },
-          {
-            "matcher": { "id": "byName", "options": "container" },
-            "properties": [{ "id": "displayName", "value": "Container" }]
-          },
-          {
-            "matcher": { "id": "byName", "options": "Value" },
-            "properties": [{ "id": "displayName", "value": "OOMKills" }]
-          }
-        ]
-      },
-      "gridPos": {
-      "h": 10,
-      "w": 24,
-      "x": 0,
-      "y": 0
-      }
+  "id": null,
+  "type": "table",
+  "title": "Pods OOMKilled (All Namespaces & Pods)",
+  "datasource": "${DS_PROMETHEUS}",
+  "targets": [
+    {
+      "expr": "sum by (namespace, pod, container, reason) (kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"})",
+      "instant": true,
+      "legendFormat": "{{namespace}} / {{pod}}",
+      "refId": "A"
     }
+  ],
+  "options": {
+    "showHeader": true,
+    "sortBy": [
+      {
+        "displayName": "OOMKills",
+        "desc": true
+      }
+    ]
+  },
+  "fieldConfig": {
+    "defaults": {
+      "custom": {}
+    },
+    "overrides": [
+      {
+        "matcher": { "id": "byName", "options": "namespace" },
+        "properties": [{ "id": "displayName", "value": "Namespace" }]
+      },
+      {
+        "matcher": { "id": "byName", "options": "pod" },
+        "properties": [{ "id": "displayName", "value": "Pod Name" }]
+      },
+      {
+        "matcher": { "id": "byName", "options": "container" },
+        "properties": [{ "id": "displayName", "value": "Container" }]
+      },
+      {
+        "matcher": { "id": "byName", "options": "reason" },
+        "properties": [{ "id": "displayName", "value": "Reason" }]
+      },
+      {
+        "matcher": { "id": "byName", "options": "Value" },
+        "properties": [{ "id": "displayName", "value": "OOMKills" }]
+      }
+    ]
+  },
+  "gridPos": {
+    "h": 12,
+    "w": 24,
+    "x": 0,
+    "y": 0
+  }
+}
 
 
   ],
