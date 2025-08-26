@@ -125,11 +125,11 @@
     },
     {
       "type": "table",
-      "title": "Pods OOMKilled (Summary with Counts, Sorted)",
+      "title": "Pods OOMKilled (Summary by Namespace & Pod)",
       "datasource": "${DS_PROMETHEUS}",
       "targets": [
         {
-          "expr": "count_over_time(kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"}[$__range])",
+          "expr": "sum by (namespace, pod, container, reason) (count_over_time(kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"}[$__range]))",
           "refId": "A"
         }
       ],
@@ -141,37 +141,29 @@
         {
           "id": "sortBy",
           "options": {
-          "fields": {},
-          "sort": [
-            {
-              "field": "Value",
-              "desc": true
-            }
-          ]
+            "sort": [
+              {
+                "field": "Value",
+                "desc": true
+              }
+            ]
           }
         }
       ],
-      "options": {
-      "showHeader": true
-      },
+      "options": { "showHeader": true },
       "fieldConfig": {
         "defaults": {},
         "overrides": [
           { "matcher": { "id": "byName", "options": "__name__" }, "properties": [{ "id": "custom.hidden", "value": true }] },
-          { "matcher": { "id": "byName", "options": "endpoint" }, "properties": [{ "id": "custom.hidden", "value": true }] },
-          { "matcher": { "id": "byName", "options": "job" }, "properties": [{ "id": "custom.hidden", "value": true }] },
-          { "matcher": { "id": "byName", "options": "service" }, "properties": [{ "id": "custom.hidden", "value": true }] },
-          { "matcher": { "id": "byName", "options": "uid" }, "properties": [{ "id": "custom.hidden", "value": true }] },
-
+          { "matcher": { "id": "byName", "options": "Value" }, "properties": [{ "id": "displayName", "value": "OOMKills" }] },
           { "matcher": { "id": "byName", "options": "namespace" }, "properties": [{ "id": "displayName", "value": "Namespace" }] },
           { "matcher": { "id": "byName", "options": "pod" }, "properties": [{ "id": "displayName", "value": "Pod Name" }] },
           { "matcher": { "id": "byName", "options": "container" }, "properties": [{ "id": "displayName", "value": "Container" }] },
-          { "matcher": { "id": "byName", "options": "reason" }, "properties": [{ "id": "displayName", "value": "Reason" }] },
-          { "matcher": { "id": "byName", "options": "Value" }, "properties": [{ "id": "displayName", "value": "OOMKills" }] }
+          { "matcher": { "id": "byName", "options": "reason" }, "properties": [{ "id": "displayName", "value": "Reason" }] }
         ]
       },
       "gridPos": { "h": 12, "w": 24, "x": 0, "y": 0 }
-  }
+    }
 
   ],
   "refresh": "30s",
