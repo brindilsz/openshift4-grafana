@@ -70,7 +70,94 @@
         "x": 0,
         "y": 0
       }
-    }
+    },
+	{
+      "type": "timeseries",
+      "title": "Pods OOMKilled over time (by namespace & pod)",
+      "datasource": "${DS_PROMETHEUS}",
+      "targets": [
+        {
+          "expr": "kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"} == 1",
+          "legendFormat": "{{namespace}} / {{pod}}",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "lines",
+            "lineInterpolation": "linear",
+            "barAlignment": 0,
+            "lineWidth": 2,
+            "fillOpacity": 0,
+            "showPoints": "always",
+            "pointSize": 6,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "spanNulls": false
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "calcs": ["lastNotNull"]
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "table",
+      "title": "Pods OOMKilled (namespace & pod)",
+      "datasource": "${DS_PROMETHEUS}",
+      "targets": [
+        {
+          "expr": "kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"} == 1",
+          "legendFormat": "{{namespace}} / {{pod}}",
+          "refId": "A"
+        }
+      ],
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {
+          "mode": "columns"
+          }
+        }
+      ],
+      "options": {
+        "showHeader": true
+     },
+     "fieldConfig": {
+       "defaults": {
+         "unit": "none"
+       },
+       "overrides": []
+     },
+     "gridPos": {
+       "h": 10,
+       "w": 24,
+       "x": 0,
+       "y": 0
+  }
+}
   ],
   "refresh": "30s",
   "schemaVersion": 39,
@@ -89,93 +176,4 @@
   "uid": "pods-oomkilled",
   "version": 3,
   "weekStart": ""
-},
-{
-  "type": "timeseries",
-  "title": "Pods OOMKilled over time (by namespace & pod)",
-  "datasource": "${DS_PROMETHEUS}",
-  "targets": [
-    {
-      "expr": "kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"} == 1",
-      "legendFormat": "{{namespace}} / {{pod}}",
-      "refId": "A"
-    }
-  ],
-  "fieldConfig": {
-    "defaults": {
-      "unit": "short",
-      "color": {
-        "mode": "palette-classic"
-      },
-      "custom": {
-        "drawStyle": "lines",
-        "lineInterpolation": "linear",
-        "barAlignment": 0,
-        "lineWidth": 2,
-        "fillOpacity": 0,
-        "showPoints": "always",
-        "pointSize": 6,
-        "stacking": {
-          "mode": "none",
-          "group": "A"
-        },
-        "spanNulls": false
-      }
-    },
-    "overrides": []
-  },
-  "options": {
-    "legend": {
-      "displayMode": "table",
-      "placement": "right",
-      "calcs": ["lastNotNull"]
-    },
-    "tooltip": {
-      "mode": "multi",
-      "sort": "none"
-    }
-  },
-  "gridPos": {
-    "h": 12,
-    "w": 24,
-    "x": 0,
-    "y": 0
-  }
-},
-{
-  "type": "table",
-  "title": "Pods OOMKilled (namespace & pod)",
-  "datasource": "${DS_PROMETHEUS}",
-  "targets": [
-    {
-      "expr": "kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"} == 1",
-      "legendFormat": "{{namespace}} / {{pod}}",
-      "refId": "A"
-    }
-  ],
-  "transformations": [
-    {
-      "id": "labelsToFields",
-      "options": {
-        "mode": "columns"
-      }
-    }
-  ],
-  "options": {
-    "showHeader": true
-  },
-  "fieldConfig": {
-    "defaults": {
-      "unit": "none"
-    },
-    "overrides": []
-  },
-  "gridPos": {
-    "h": 10,
-    "w": 24,
-    "x": 0,
-    "y": 0
-  }
 }
-
-
