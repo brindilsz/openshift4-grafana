@@ -28,42 +28,16 @@
       "datasource": "${DS_PROMETHEUS}",
       "targets": [
         {
-          "expr": "sum by (namespace, pod, container, reason) (count_over_time(kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"}[$__range]))",
+          "expr": "sum by (namespace, pod, container) (kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"})",
           "refId": "A",
           "instant": true
-        }
-      ],
-      "transformations": [
-        {
-          "id": "labelsToFields",
-          "options": { "mode": "columns" }
-        },
-        {
-          "id": "sortBy",
-          "options": {
-            "sort": [
-              {
-                "field": "Value",
-                "desc": true
-              }
-            ]
-          }
         }
       ],
       "options": {
       "showHeader": true
       },
       "fieldConfig": {
-        "defaults": {},
         "overrides": [
-          {
-            "matcher": { "id": "byName", "options": "__name__" },
-            "properties": [{ "id": "custom.hidden", "value": true }]
-          },
-          {
-            "matcher": { "id": "byName", "options": "Value" },
-            "properties": [{ "id": "displayName", "value": "OOMKills" }]
-          },
           {
             "matcher": { "id": "byName", "options": "namespace" },
             "properties": [{ "id": "displayName", "value": "Namespace" }]
@@ -77,18 +51,19 @@
             "properties": [{ "id": "displayName", "value": "Container" }]
           },
           {
-            "matcher": { "id": "byName", "options": "reason" },
-            "properties": [{ "id": "displayName", "value": "Reason" }]
+            "matcher": { "id": "byName", "options": "Value" },
+            "properties": [{ "id": "displayName", "value": "OOMKills" }]
           }
         ]
       },
       "gridPos": {
-      "h": 12,
+      "h": 10,
       "w": 24,
       "x": 0,
       "y": 0
       }
     }
+
 
   ],
   "refresh": "30s",
