@@ -2396,8 +2396,8 @@
 		]
 	},
 	"timezone": "",
-	"title": "Cluster Metrics Pods",
-	"uid": "ocp-415-pod",
+	"title": "Nodes and Pods Metrics",
+	"uid": "ocp-415-nodes-pods",
 	"version": 1,
 	"weekStart": ""
 }
