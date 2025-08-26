@@ -17,36 +17,53 @@
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
-  "graphTooltip": 0,
+  "graphTooltip": 1,
   "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
     {
-      "type": "table",
-      "title": "Pods OOMKilled",
+      "type": "timeseries",
+      "title": "Pods OOMKilled over time",
       "datasource": "${DS_PROMETHEUS}",
       "targets": [
         {
-          "expr": "max by (namespace, pod) (kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"} == 1)",
+          "expr": "kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"}",
+          "legendFormat": "{{namespace}} / {{pod}}",
           "refId": "A"
         }
       ],
-      "options": {
-        "showHeader": true
-      },
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "unit": "none",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "lines",
+            "lineInterpolation": "linear",
+            "barAlignment": 0,
+            "lineWidth": 2,
+            "fillOpacity": 20,
+            "showPoints": "never",
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "spanNulls": true
+          }
+        },
         "overrides": []
       },
-      "transformations": [
-        {
-          "id": "labelsToFields",
-          "options": {
-            "mode": "columns"
-          }
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "multi"
         }
-      ],
+      },
       "gridPos": {
         "h": 10,
         "w": 24,
@@ -70,6 +87,6 @@
   "timezone": "",
   "title": "Pods OOMKilled",
   "uid": "pods-oomkilled",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
