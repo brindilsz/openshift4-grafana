@@ -138,26 +138,40 @@
         {
           "id": "labelsToFields",
           "options": {
-          "mode": "columns"
-          }
+            "mode": "columns"
         }
-      ],
-      "options": {
-        "showHeader": true
-     },
-     "fieldConfig": {
-       "defaults": {
-         "unit": "none"
-       },
-       "overrides": []
-     },
-     "gridPos": {
-       "h": 10,
-       "w": 24,
-       "x": 0,
-       "y": 0
+    }
+  ],
+  "options": {
+    "showHeader": true
+  },
+  "fieldConfig": {
+    "defaults": {
+      "unit": "none"
+    },
+    "overrides": [
+      {
+        "matcher": {
+          "id": "byName",
+          "options": "Value"
+        },
+        "properties": [
+          {
+            "id": "custom.hidden",
+            "value": true
+          }
+        ]
+      }
+    ]
+  },
+  "gridPos": {
+    "h": 10,
+    "w": 24,
+    "x": 0,
+    "y": 0
   }
 }
+
   ],
   "refresh": "30s",
   "schemaVersion": 39,
