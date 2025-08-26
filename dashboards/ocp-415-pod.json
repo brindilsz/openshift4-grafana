@@ -29,9 +29,8 @@
   "datasource": "${DS_PROMETHEUS}",
   "targets": [
     {
-      "expr": "sum by (namespace, pod, container, reason) (kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"})",
+      "expr": "count by (namespace, pod, container, reason) (kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"})",
       "instant": true,
-      "legendFormat": "{{namespace}} / {{pod}}",
       "refId": "A"
     }
   ],
@@ -39,7 +38,7 @@
     "showHeader": true,
     "sortBy": [
       {
-        "displayName": "OOMKills",
+        "displayName": "Value",
         "desc": true
       }
     ]
