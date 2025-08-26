@@ -23,60 +23,25 @@
   "liveNow": false,
   "panels": [
     {
-  "id": null,
-  "type": "table",
-  "title": "Pods OOMKilled (All Namespaces & Pods)",
-  "datasource": "${DS_PROMETHEUS}",
-  "targets": [
-    {
-      "expr": "count by (namespace, pod, container, reason) (kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"})",
-      "instant": true,
-      "refId": "A"
+      "type": "table",
+      "title": "Pods OOMKilled (All Namespaces & Pods)",
+      "targets": [
+        {
+          "expr": "count by (namespace, pod, container, reason) (kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"})",
+          "refId": "A",
+          "instant": false
+        }
+      ],
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {}
+        }
+      ],
+      "options": {
+        "showHeader": true
+      }
     }
-  ],
-  "options": {
-    "showHeader": true,
-    "sortBy": [
-      {
-        "displayName": "Value",
-        "desc": true
-      }
-    ]
-  },
-  "fieldConfig": {
-    "defaults": {
-      "custom": {}
-    },
-    "overrides": [
-      {
-        "matcher": { "id": "byName", "options": "namespace" },
-        "properties": [{ "id": "displayName", "value": "Namespace" }]
-      },
-      {
-        "matcher": { "id": "byName", "options": "pod" },
-        "properties": [{ "id": "displayName", "value": "Pod Name" }]
-      },
-      {
-        "matcher": { "id": "byName", "options": "container" },
-        "properties": [{ "id": "displayName", "value": "Container" }]
-      },
-      {
-        "matcher": { "id": "byName", "options": "reason" },
-        "properties": [{ "id": "displayName", "value": "Reason" }]
-      },
-      {
-        "matcher": { "id": "byName", "options": "Value" },
-        "properties": [{ "id": "displayName", "value": "OOMKills" }]
-      }
-    ]
-  },
-  "gridPos": {
-    "h": 12,
-    "w": 24,
-    "x": 0,
-    "y": 0
-  }
-}
 
 
   ],
