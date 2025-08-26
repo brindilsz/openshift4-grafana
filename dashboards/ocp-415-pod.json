@@ -39,6 +39,14 @@
         "defaults": {},
         "overrides": []
       },
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {
+            "mode": "columns"
+          }
+        }
+      ],
       "gridPos": {
         "h": 10,
         "w": 24,
@@ -62,6 +70,6 @@
   "timezone": "",
   "title": "Pods OOMKilled",
   "uid": "pods-oomkilled",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
